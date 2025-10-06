@@ -17,7 +17,11 @@ const CodeView = () => {
   };
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" className="p-4">
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      className="p-4"
+      keyboardDismissMode="on-drag"
+    >
       <SegmentedControl
         className="mb-4"
         values={["Verschlüsseln", "Entschlüsseln"]}

@@ -1,10 +1,14 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { TextInput, View } from "react-native";
 
 const CodeComponent = () => {
   return (
     <View>
-      <Text>CodeComponent</Text>
+      <TextInput
+        placeholder="Text in normaler Schrift..."
+        className="bg-gray-400 p-2 rounded-lg h-64"
+        multiline={true}
+      />
     </View>
   );
 };
