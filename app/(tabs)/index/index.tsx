@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 
 const CodeView = () => {
   return (
-    <View>
+    <ScrollView contentInsetAdjustmentBehavior="automatic" className="p-4">
       <Text>CodeView</Text>
-    </View>
+    </ScrollView>
   );
 };
 
