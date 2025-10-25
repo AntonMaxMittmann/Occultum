@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Picker } from "@react-native-picker/picker";
 import React from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 const DecodeComponent = () => {
   return (
@@ -29,26 +29,8 @@ const DecodeComponent = () => {
       </View>
 
       <View className="flex flex-row">
-        <View className="w-[80%] min-h-10 bg-blue-200 p-2 rounded-lg">
+        <View className="w-full min-h-56 bg-blue-200 p-2 rounded-lg">
           <Text></Text>
-        </View>
-        <View className="flex flex-col ml-3">
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert("Copy");
-            }}
-            className="bg-blue-300 m-2 w-12 h-12 rounded-full flex items-center justify-center p-2"
-          >
-            <Ionicons name="copy-outline" size={24} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert("Share");
-            }}
-            className="m-2 mt-16 bg-blue-300 w-12 h-12 rounded-full flex items-center justify-center p-2"
-          >
-            <Ionicons name="share-outline" size={24} />
-          </TouchableOpacity>
         </View>
       </View>
     </View>
