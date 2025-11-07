@@ -19,7 +19,7 @@ const CodeView = () => {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      className="p-4"
+      className="p-4 dark:bg-gray-950"
       keyboardDismissMode="on-drag"
     >
       <SegmentedControl
@@ -30,7 +30,7 @@ const CodeView = () => {
           setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
         }}
       />
-      <View className="mt-3">{renderContent()}</View>
+      <View className="mt-3 h-full">{renderContent()}</View>
     </ScrollView>
   );
 };

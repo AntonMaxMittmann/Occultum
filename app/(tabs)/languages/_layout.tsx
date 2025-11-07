@@ -1,9 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, Stack } from "expo-router";
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, useColorScheme } from "react-native";
 
 const LanguagesStack = () => {
+  const colorScheme = useColorScheme();
+  const headerColor = colorScheme === "dark" ? "white" : "dark";
   return (
     <Stack>
       <Stack.Screen
@@ -12,6 +14,9 @@ const LanguagesStack = () => {
           title: "Sprachen",
           headerLargeTitle: true,
           headerTransparent: true,
+          headerTitleStyle: {
+            color: headerColor,
+          },
           headerSearchBarOptions: {
             placeholder: "Sprachen durchsuchen...",
           },
@@ -23,7 +28,7 @@ const LanguagesStack = () => {
                 }}
                 className="flex h-10 w-10 flex-row justify-center items-center"
               >
-                <Ionicons name="add" size={30} />
+                <Ionicons name="add" size={30} color={headerColor} />
               </TouchableOpacity>
             );
           },
