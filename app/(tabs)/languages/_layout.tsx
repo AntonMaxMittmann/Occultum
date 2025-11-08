@@ -40,6 +40,19 @@ const LanguagesStack = () => {
           presentation: "formSheet",
           title: "Sprachen hinzufügen...",
           headerTransparent: true,
+          headerTitleStyle: {
+            color: headerColor,
+          },
+          headerLeft: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => router.back()}
+                className="flex h-10 w-10 flex-row justify-center items-center"
+              >
+                <Ionicons name="close" color={headerColor} size={30} />
+              </TouchableOpacity>
+            );
+          },
         }}
       />
     </Stack>

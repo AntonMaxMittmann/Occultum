@@ -1,9 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Picker } from "@react-native-picker/picker";
 import React from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, useColorScheme, View } from "react-native";
 
 const DecodeComponent = () => {
+  const colorScheme = useColorScheme();
+  const iconColor = colorScheme === "light" ? "black" : "white";
   return (
     <View className="flex flex-col">
       <View className="bg-blue-200 p-2 rounded-xl dark:bg-blue-900">
@@ -22,7 +24,7 @@ const DecodeComponent = () => {
         <Picker.Item label="Test" />
       </Picker>
       <View className="flex items-center m-2">
-        <Ionicons name="arrow-down" size={24} />
+        <Ionicons name="arrow-down" size={24} color={iconColor} />
       </View>
       <View></View>
 
