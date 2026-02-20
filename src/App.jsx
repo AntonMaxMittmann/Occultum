@@ -1,3 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import Code from "./routes/Code";
+import Header from "./components/Header";
+
 export default function App() {
-  return <h1>Occultum</h1>;
+  return (
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Code />} />
+      </Routes>
+    </div>
+  );
 }
