@@ -12,14 +12,14 @@ export default function Code() {
         <button
           onClick={() => setPage(1)}
           style={{ backgroundColor: bg1 }}
-          className="mr-4 p-2 rounded-sm cursor-pointer"
+          className=" p-3 rounded-l-xl cursor-pointer"
         >
           Verschlüsseln
         </button>
         <button
           onClick={() => setPage(2)}
           style={{ backgroundColor: bg2 }}
-          className="p-2 rounded-sm cursor-pointer"
+          className="p-3 rounded-r-xl cursor-pointer"
         >
           Entschlüsseln
         </button>
