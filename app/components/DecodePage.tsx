@@ -1,8 +1,18 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
+import * as Clipboard from "expo-clipboard";
 import React, { useEffect, useState } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Platform,
+  Share,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const LANGUAGE_STORAGE_KEY = "languages";
 
@@ -38,6 +48,32 @@ const DecodePage = () => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [inputText, setInputText] = useState("");
   const [result, setResult] = useState("");
+
+  const handleShare = async () => {
+    try {
+      await Share.share({
+        message: result || "",
+      });
+    } catch (error) {
+      console.warn("Share failed", error);
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      if (
+        Platform.OS === "web" &&
+        typeof navigator?.clipboard?.writeText === "function"
+      ) {
+        await navigator.clipboard.writeText(result || "");
+      } else {
+        await Clipboard.setStringAsync(result || "");
+      }
+      Alert.alert("Kopiert", "Der Text wurde in die Zwischenablage kopiert.");
+    } catch (error) {
+      console.warn("Copy failed", error);
+    }
+  };
 
   useEffect(() => {
     const loadLanguages = async () => {
@@ -138,6 +174,7 @@ const DecodePage = () => {
             }}
           >
             <TouchableOpacity
+              onPress={handleShare}
               style={{
                 backgroundColor: "#004e8d62",
                 borderRadius: 9999,
@@ -151,6 +188,7 @@ const DecodePage = () => {
               <Ionicons name="share-outline" size={30} />
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={handleCopy}
               style={{
                 backgroundColor: "#004e8d62",
                 borderRadius: 9999,
