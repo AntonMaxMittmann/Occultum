@@ -1,6 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 
 type Language = {
@@ -20,6 +21,24 @@ const createCaesarLanguage = (shift: number): Language => {
 };
 
 const RootLayout = () => {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    const loadIcons = async () => {
+      try {
+        if (typeof Ionicons.loadFont === "function") {
+          await Ionicons.loadFont();
+        }
+      } catch (error) {
+        console.warn("Ionicons font load failed", error);
+      } finally {
+        setFontsLoaded(true);
+      }
+    };
+
+    loadIcons();
+  }, []);
+
   const languages = [
     {
       name: "Entgegensetzes Alphabet",
@@ -75,6 +94,10 @@ const RootLayout = () => {
 
     initLanguages();
   }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <Stack>
