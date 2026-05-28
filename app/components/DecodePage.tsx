@@ -88,7 +88,7 @@ const DecodePage = () => {
               setSelectedLanguage(itemValue)
             }
             style={{ height: 38, width: "100%" }}
-            itemStyle={{ fontSize: 12, height: 38 }}
+            itemStyle={{ fontSize: 14, height: 38 }}
           >
             {languages.length === 0 ? (
               <Picker.Item label="Keine Sprachen gefunden" value="" />

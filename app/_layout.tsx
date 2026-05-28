@@ -3,6 +3,22 @@ import { Stack } from "expo-router";
 import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 
+type Language = {
+  name: string;
+  [key: string]: string;
+};
+
+const createCaesarLanguage = (shift: number): Language => {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const mapping: Language = { name: `Caesar-Verschlüsselung: ${shift}` };
+
+  alphabet.split("").forEach((letter, index) => {
+    mapping[letter] = alphabet[(index + shift) % 26];
+  });
+
+  return mapping;
+};
+
 const RootLayout = () => {
   const languages = [
     {
@@ -34,13 +50,22 @@ const RootLayout = () => {
       y: "b",
       z: "a",
     },
+    ...Array.from({ length: 25 }, (_, index) =>
+      createCaesarLanguage(index + 1),
+    ),
   ];
 
   useEffect(() => {
     const initLanguages = async () => {
       try {
         const stored = await AsyncStorage.getItem("languages");
-        if (!stored) {
+        const parsed = stored ? JSON.parse(stored) : null;
+        const shouldWrite =
+          !Array.isArray(parsed) ||
+          parsed.length !== languages.length ||
+          parsed.some((item: any) => typeof item?.name !== "string");
+
+        if (shouldWrite) {
           await AsyncStorage.setItem("languages", JSON.stringify(languages));
         }
       } catch (error) {
