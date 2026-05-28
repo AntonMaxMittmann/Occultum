@@ -1,9 +1,11 @@
 import arrowDownIcon from "@/app/assets/arrow_down.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import React from "react";
+import { Picker } from "@react-native-picker/picker";
+import React, { useState } from "react";
 import { Image, TextInput, TouchableOpacity, View } from "react-native";
 
 const CodePage = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState();
   return (
     <View style={{ marginTop: 18 }}>
       <View>
@@ -19,6 +21,17 @@ const CodePage = () => {
         />
         <View style={{ alignItems: "center", marginVertical: 18 }}>
           <Image source={arrowDownIcon} style={{ width: 45, height: 45 }} />
+        </View>
+        <View style={{ paddingLeft: 30, paddingRight: 30, marginBottom: 10 }}>
+          <Picker
+            selectedValue={selectedLanguage}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedLanguage(itemValue)
+            }
+          >
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
         </View>
 
         <View
