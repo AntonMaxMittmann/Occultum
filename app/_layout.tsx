@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import { SearchProvider } from "./context/SearchContext";
 
 type Language = {
   name: string;
@@ -100,9 +101,11 @@ const RootLayout = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <SearchProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </SearchProvider>
   );
 };
 
