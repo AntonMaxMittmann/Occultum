@@ -1,9 +1,22 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
 import React from "react";
+import { Platform } from "react-native";
 
 const TabsLayout = () => {
-  return (
+  return Platform.OS === "android" || Platform.OS === "ios" ? (
+    <NativeTabs>
+      <NativeTabs.Trigger name="index">
+        <Label>Kodieren/Dekodieren</Label>
+        <Icon sf="cpu" drawable="custom_android_drawable" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="langs">
+        <Icon sf="globe" drawable="custom_settings_drawable" />
+        <Label>Sprachen</Label>
+      </NativeTabs.Trigger>
+    </NativeTabs>
+  ) : (
     <Tabs>
       <Tabs.Screen
         name="index"
