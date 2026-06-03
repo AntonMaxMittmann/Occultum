@@ -82,7 +82,7 @@ const RootLayout = () => {
         const parsed = stored ? JSON.parse(stored) : null;
         const shouldWrite =
           !Array.isArray(parsed) ||
-          parsed.length !== languages.length ||
+          parsed.length === 0 ||
           parsed.some((item: any) => typeof item?.name !== "string");
 
         if (shouldWrite) {

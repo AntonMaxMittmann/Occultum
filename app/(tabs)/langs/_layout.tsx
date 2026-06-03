@@ -2,7 +2,7 @@ import { useSearch } from "@/app/context/SearchContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import React from "react";
-import { TouchableOpacity, Platform } from "react-native";
+import { Platform, TouchableOpacity } from "react-native";
 
 const LangsIndex = () => {
   const { setSearchText } = useSearch();
@@ -15,6 +15,19 @@ const LangsIndex = () => {
         options={{
           title: "Alle Sprachen",
           headerShown: true,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => router.push("/(tabs)/langs/AddLanguage")}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                width: 32,
+                height: 32,
+              }}
+            >
+              <Ionicons size={25} name="add-outline" color="#004e8d" />
+            </TouchableOpacity>
+          ),
           headerLargeTitle: true,
           headerSearchBarOptions: {
             placeholder: "Sprachen durchsuchen...",
@@ -22,6 +35,17 @@ const LangsIndex = () => {
               setSearchText(event.nativeEvent.text);
             },
           },
+        }}
+      />
+      <Stack.Screen
+        name="AddLanguage"
+        options={{
+          presentation: "formSheet",
+          title: "Neue Sprache",
+          headerShown: true,
+          sheetAllowedDetents: [0.5, 1],
+          sheetInitialDetentIndex: 1,
+          sheetGrabberVisible: true,
         }}
       />
       <Stack.Screen
@@ -47,7 +71,7 @@ const LangsIndex = () => {
                 height: 32,
               }}
             >
-              <Ionicons name="checkmark" size={28} color="#004e8d" />
+              <Ionicons name="checkmark-outline" size={25} color="#004e8d" />
             </TouchableOpacity>
           ),
         }}

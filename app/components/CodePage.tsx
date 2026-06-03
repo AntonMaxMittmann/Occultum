@@ -2,7 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import * as Clipboard from "expo-clipboard";
-import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Alert,
   Image,
@@ -68,24 +69,29 @@ const CodePage = () => {
     }
   };
 
-  useEffect(() => {
-    const loadLanguages = async () => {
-      try {
-        const stored = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
-        if (!stored) return;
+  const loadLanguages = useCallback(async () => {
+    try {
+      const stored = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (!stored) return;
 
-        const parsed = JSON.parse(stored) as Language[];
-        setLanguages(parsed);
-        if (parsed.length > 0 && !selectedLanguage) {
-          setSelectedLanguage(parsed[0].name);
+      const parsed = JSON.parse(stored) as Language[];
+      setLanguages(parsed);
+      setSelectedLanguage((current) => {
+        if (current && parsed.some((lang) => lang.name === current)) {
+          return current;
         }
-      } catch (error) {
-        console.warn("Failed to load languages from AsyncStorage", error);
-      }
-    };
-
-    loadLanguages();
+        return parsed[0]?.name;
+      });
+    } catch (error) {
+      console.warn("Failed to load languages from AsyncStorage", error);
+    }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadLanguages();
+    }, [loadLanguages]),
+  );
 
   useEffect(() => {
     const currentLanguage = languages.find(

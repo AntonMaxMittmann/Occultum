@@ -2,7 +2,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, FlatList, StyleSheet } from "react-native";
+import {
+  Alert,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const LANGUAGE_STORAGE_KEY = "languages";
 
 type Language = {
   name: string;
@@ -19,18 +29,17 @@ const LanguageDetail = () => {
   const router = useRouter();
   const navigation = useNavigation();
   const { languageName } = useLocalSearchParams<{ languageName: string }>();
-  const [language, setLanguage] = useState<Language | null>(null);
   const [alphabetItems, setAlphabetItems] = useState<AlphabetItem[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const loadLanguage = async () => {
       try {
-        const stored = await AsyncStorage.getItem("languages");
+        const stored = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
         if (!stored) return;
 
         const languages = JSON.parse(stored) as Language[];
         const found = languages.find((lang) => lang.name === languageName);
-        setLanguage(found || null);
 
         if (found) {
           const items = Object.entries(found)
@@ -56,6 +65,45 @@ const LanguageDetail = () => {
     });
   }, [languageName, navigation]);
 
+  const handleDelete = () => {
+    if (!languageName || isDeleting) return;
+
+    Alert.alert(
+      "Sprache löschen",
+      `„${languageName}" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.`,
+      [
+        { text: "Abbrechen", style: "cancel" },
+        {
+          text: "Löschen",
+          style: "destructive",
+          onPress: async () => {
+            setIsDeleting(true);
+            try {
+              const stored = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
+              if (!stored) return;
+
+              const languages = JSON.parse(stored) as Language[];
+              const updated = languages.filter(
+                (lang) => lang.name !== languageName,
+              );
+
+              await AsyncStorage.setItem(
+                LANGUAGE_STORAGE_KEY,
+                JSON.stringify(updated),
+              );
+              router.back();
+            } catch (error) {
+              console.warn("Failed to delete language", error);
+              Alert.alert("Fehler", "Die Sprache konnte nicht gelöscht werden.");
+            } finally {
+              setIsDeleting(false);
+            }
+          },
+        },
+      ],
+    );
+  };
+
   const renderAlphabetItem = ({ item }: { item: AlphabetItem }) => (
     <View style={styles.mappingItem}>
       <Text style={styles.fromChar}>{item.from}</Text>
@@ -77,6 +125,16 @@ const LanguageDetail = () => {
         numColumns={6}
         columnWrapperStyle={styles.columnWrapper}
       />
+
+      <TouchableOpacity
+        onPress={handleDelete}
+        disabled={isDeleting}
+        style={[styles.deleteButton, isDeleting && styles.deleteButtonDisabled]}
+      >
+        <Text style={styles.deleteButtonText}>
+          {isDeleting ? "Wird gelöscht…" : "Sprache löschen"}
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -120,6 +178,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: "#004e8d",
+  },
+  deleteButton: {
+    marginTop: 32,
+    marginBottom: 24,
+    paddingVertical: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#d32f2f",
+    alignItems: "center",
+  },
+  deleteButtonDisabled: {
+    opacity: 0.5,
+  },
+  deleteButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#d32f2f",
   },
 });
 

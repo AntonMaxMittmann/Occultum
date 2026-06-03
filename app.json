@@ -4,7 +4,7 @@
     "slug": "occultum",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./app/assets/icon.png",
     "scheme": "occultum",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -12,19 +12,22 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
-      },
+      "icon": "./app/assets/icon.png",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.antmitt.occultum"
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./app/assets/icon.png",
+      "name": "Occultum",
+      "shortName": "Occultum",
+      "description": "Sprachen kodieren, dekodieren und eigene Alphabete verwalten.",
+      "lang": "de",
+      "themeColor": "#004e8d",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "startUrl": "/"
     },
     "plugins": [
       "expo-router",

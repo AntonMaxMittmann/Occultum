@@ -1,5 +1,5 @@
-import { useRouter } from "expo-router";
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import React, { useCallback, useRef, useMemo, useState } from "react";
 import {
   SectionList,
   Text,
@@ -26,21 +26,23 @@ const Langs = () => {
   const [allLanguages, setAllLanguages] = useState<Language[]>([]);
   const sectionListRef = useRef<SectionList>(null);
 
-  useEffect(() => {
-    const loadLanguages = async () => {
-      try {
-        const stored = await AsyncStorage.getItem("languages");
-        if (!stored) return;
+  const loadLanguages = useCallback(async () => {
+    try {
+      const stored = await AsyncStorage.getItem("languages");
+      if (!stored) return;
 
-        const parsed = JSON.parse(stored) as Language[];
-        setAllLanguages(parsed);
-      } catch (error) {
-        console.warn("Failed to load languages from AsyncStorage", error);
-      }
-    };
-
-    loadLanguages();
+      const parsed = JSON.parse(stored) as Language[];
+      setAllLanguages(parsed);
+    } catch (error) {
+      console.warn("Failed to load languages from AsyncStorage", error);
+    }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadLanguages();
+    }, [loadLanguages]),
+  );
 
   const sections = useMemo(() => {
     let filtered = allLanguages;
