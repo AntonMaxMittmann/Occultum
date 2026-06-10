@@ -1,3 +1,4 @@
+import { ACCENT_COLOR } from "@/app/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
@@ -6,7 +7,7 @@ import { Platform } from "react-native";
 
 const TabsLayout = () => {
   return Platform.OS === "android" || Platform.OS === "ios" ? (
-    <NativeTabs>
+    <NativeTabs tintColor={ACCENT_COLOR}>
       <NativeTabs.Trigger name="index">
         <Label>Kodieren/Dekodieren</Label>
         <Icon sf="cpu" md="code" />
@@ -21,14 +22,19 @@ const TabsLayout = () => {
       </NativeTabs.Trigger>
     </NativeTabs>
   ) : (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: ACCENT_COLOR,
+        tabBarInactiveTintColor: ACCENT_COLOR,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           headerShown: false,
           title: "Kodieren/Dekodieren",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="code" color={color} size={24} />
+          tabBarIcon: () => (
+            <Ionicons name="code" color={ACCENT_COLOR} size={24} />
           ),
         }}
       />
@@ -37,8 +43,8 @@ const TabsLayout = () => {
         options={{
           headerShown: false,
           title: "Sprachen",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="language" color={color} size={24} />
+          tabBarIcon: () => (
+            <Ionicons name="language" color={ACCENT_COLOR} size={24} />
           ),
         }}
       />
@@ -47,8 +53,8 @@ const TabsLayout = () => {
         options={{
           headerShown: false,
           title: "Einstellungen",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="settings-outline" color={color} size={24} />
+          tabBarIcon: () => (
+            <Ionicons name="settings-outline" color={ACCENT_COLOR} size={24} />
           ),
         }}
       />

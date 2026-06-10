@@ -1,3 +1,4 @@
+import { ACCENT_COLOR, DANGER_COLOR } from "@/app/constants/colors";
 import {
   DEFAULT_LANGUAGE_NAMES,
   getDefaultLanguages,
@@ -89,7 +90,7 @@ const Settings = () => {
             onPress={() => Linking.openURL(GITHUB_URL)}
           >
             <Text style={styles.label}>GitHub</Text>
-            <Ionicons name="logo-github" size={24} color="#004e8d" />
+            <Ionicons name="logo-github" size={24} color={ACCENT_COLOR} />
           </TouchableOpacity>
         </View>
       </View>
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#666",
+    color: ACCENT_COLOR,
     marginBottom: 8,
     marginLeft: 4,
     textTransform: "uppercase",
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 16,
-    color: "#666",
+    color: ACCENT_COLOR,
   },
   resetButton: {
     backgroundColor: "#f5f5f5",
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
   resetButtonText: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#d32f2f",
+    color: DANGER_COLOR,
   },
 });
 

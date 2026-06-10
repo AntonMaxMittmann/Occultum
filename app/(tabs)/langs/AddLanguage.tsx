@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, useRouter } from "expo-router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -13,6 +13,7 @@ import {
   View,
 } from "react-native";
 
+import { ACCENT_COLOR, FIELD_COLOR } from "@/app/constants/colors";
 import { ALPHABET } from "@/app/data/defaultLanguages";
 
 const LANGUAGE_STORAGE_KEY = "languages";
@@ -103,7 +104,7 @@ const AddLanguage = () => {
           <Ionicons
             name="checkmark-outline"
             size={26}
-            color={isSaving ? "#99b3c7" : "#004e8d"}
+            color={isSaving ? FIELD_COLOR : ACCENT_COLOR}
           />
         </TouchableOpacity>
       ),
@@ -132,7 +133,7 @@ const AddLanguage = () => {
       <TextInput
         value={mappings[item.from]}
         onChangeText={(text) => updateMapping(item.from, text)}
-        maxLength={2}
+        maxLength={1}
         autoCapitalize="none"
         autoCorrect={false}
         style={styles.toInput}
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
   toInput: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#004e8d",
+    color: ACCENT_COLOR,
     minWidth: 20,
     padding: 0,
     textAlign: "center",

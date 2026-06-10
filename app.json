@@ -24,7 +24,7 @@
       "shortName": "Occultum",
       "description": "Sprachen kodieren, dekodieren und eigene Alphabete verwalten.",
       "lang": "de",
-      "themeColor": "#004e8d",
+      "themeColor": "#3e4e63",
       "backgroundColor": "#ffffff",
       "display": "standalone",
       "startUrl": "/"

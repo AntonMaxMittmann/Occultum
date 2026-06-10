@@ -1,3 +1,4 @@
+import { ACCENT_COLOR } from "@/app/constants/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useNavigation } from "expo-router";
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   toChar: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#004e8d",
+    color: ACCENT_COLOR,
   },
   deleteButton: {
     marginTop: 32,
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#d32f2f",
+    borderColor: ACCENT_COLOR,
     alignItems: "center",
   },
   deleteButtonDisabled: {
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#d32f2f",
+    color: ACCENT_COLOR,
   },
 });
 

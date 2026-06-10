@@ -1,3 +1,4 @@
+import { FIELD_COLOR } from "@/app/constants/colors";
 import { Language } from "@/app/data/defaultLanguages";
 import { encodeText } from "@/app/utils/translate";
 import { Ionicons } from "@expo/vector-icons";
@@ -93,7 +94,7 @@ const CodePage = () => {
           style={{
             borderWidth: 0,
             padding: 10,
-            backgroundColor: "#004e8d62",
+            backgroundColor: FIELD_COLOR,
             borderRadius: 5,
             height: 200,
             color: "#000",
@@ -141,7 +142,7 @@ const CodePage = () => {
             style={{
               width: "80%",
               height: 200,
-              backgroundColor: "#004e8d62",
+              backgroundColor: FIELD_COLOR,
               borderRadius: 5,
             }}
           >
@@ -159,7 +160,7 @@ const CodePage = () => {
             <TouchableOpacity
               onPress={handleShare}
               style={{
-                backgroundColor: "#004e8d62",
+                backgroundColor: FIELD_COLOR,
                 borderRadius: 9999,
                 height: 60,
                 width: 60,
@@ -173,7 +174,7 @@ const CodePage = () => {
             <TouchableOpacity
               onPress={handleCopy}
               style={{
-                backgroundColor: "#004e8d62",
+                backgroundColor: FIELD_COLOR,
                 borderRadius: 9999,
                 height: 60,
                 width: 60,

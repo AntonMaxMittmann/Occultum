@@ -1,3 +1,4 @@
+import { ACCENT_COLOR } from "@/app/constants/colors";
 import { useSearch } from "@/app/context/SearchContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
@@ -28,7 +29,7 @@ const LangsIndex = () => {
                 marginLeft: 2,
               }}
             >
-              <Ionicons size={26} name="add-outline" color="#004e8d" />
+              <Ionicons size={26} name="add-outline" color={ACCENT_COLOR} />
             </TouchableOpacity>
           ),
           headerLargeTitle: true,
@@ -80,7 +81,7 @@ const LangsIndex = () => {
                 marginLeft: 2.5,
               }}
             >
-              <Ionicons name="checkmark-outline" size={26} color="#004e8d" />
+              <Ionicons name="checkmark-outline" size={26} color={ACCENT_COLOR} />
             </TouchableOpacity>
           ),
         }}

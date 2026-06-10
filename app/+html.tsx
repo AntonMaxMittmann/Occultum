@@ -2,7 +2,7 @@ import { ScrollViewStyleReset } from "expo-router/html";
 import { type PropsWithChildren } from "react";
 
 const APP_NAME = "Occultum";
-const THEME_COLOR = "#004e8d";
+const THEME_COLOR = "#3e4e63";
 
 export default function Root({ children }: PropsWithChildren) {
   return (

@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ACCENT_COLOR } from "@/app/constants/colors";
 import { useSearch } from "@/app/context/SearchContext";
 
 type Language = {
@@ -91,19 +92,39 @@ const Langs = () => {
     }
   };
 
-  const renderLanguageItem = ({ item }: { item: Language }) => (
-    <TouchableOpacity
-      onPress={() => handleLanguagePress(item.name)}
-      style={styles.languageItem}
-    >
-      <Text style={styles.languageName}>{item.name}</Text>
-    </TouchableOpacity>
-  );
+  const renderLanguageItem = ({
+    item,
+    index,
+    section,
+  }: {
+    item: Language;
+    index: number;
+    section: LanguageSection;
+  }) => {
+    const isFirst = index === 0;
+    const isLast = index === section.data.length - 1;
+
+    return (
+      <View
+        style={[
+          styles.cardItem,
+          isFirst && styles.cardItemFirst,
+          isLast && styles.cardItemLast,
+          isLast && styles.cardItemSectionEnd,
+        ]}
+      >
+        <TouchableOpacity
+          onPress={() => handleLanguagePress(item.name)}
+          style={[styles.row, !isFirst && styles.rowBorder]}
+        >
+          <Text style={styles.label}>{item.name}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   const renderSectionHeader = ({ section }: { section: LanguageSection }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{section.title}</Text>
-    </View>
+    <Text style={styles.sectionTitle}>{section.title}</Text>
   );
 
   return (
@@ -116,6 +137,7 @@ const Langs = () => {
         keyExtractor={(item) => item.name}
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={styles.container}
+        stickySectionHeadersEnabled={false}
       />
 
       {/* Quick-Jump Bar */}
@@ -138,25 +160,45 @@ const Langs = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 32,
-  },
-  sectionHeader: {
-    backgroundColor: "#f5f5f5",
     paddingHorizontal: 18,
-    paddingVertical: 8,
+    paddingTop: 18,
+    paddingBottom: 32,
   },
   sectionTitle: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#666",
+    color: ACCENT_COLOR,
+    marginBottom: 8,
+    marginLeft: 4,
+    textTransform: "uppercase",
   },
-  languageItem: {
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#e0e0e0",
+  cardItem: {
+    backgroundColor: "#f5f5f5",
+    overflow: "hidden",
   },
-  languageName: {
+  cardItemFirst: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  cardItemLast: {
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  cardItemSectionEnd: {
+    marginBottom: 24,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  rowBorder: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: "#e0e0e0",
+  },
+  label: {
     fontSize: 16,
     color: "#000",
   },
@@ -175,7 +217,7 @@ const styles = StyleSheet.create({
   indexText: {
     fontSize: 10,
     fontWeight: "600",
-    color: "#004e8d",
+    color: ACCENT_COLOR,
   },
 });
 
