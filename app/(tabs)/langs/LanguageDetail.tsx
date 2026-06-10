@@ -1,7 +1,6 @@
-import { ACCENT_COLOR } from "@/app/constants/colors";
+import { DANGER_COLOR } from "@/app/constants/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useNavigation } from "expo-router";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   Alert,
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: ACCENT_COLOR,
+    borderColor: DANGER_COLOR,
     alignItems: "center",
   },
   deleteButtonDisabled: {
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     fontSize: 16,
     fontWeight: "600",
-    color: ACCENT_COLOR,
+    color: DANGER_COLOR,
   },
 });
 
