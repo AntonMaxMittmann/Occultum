@@ -1,4 +1,4 @@
-import { DANGER_COLOR } from "@/app/constants/colors";
+import { ACCENT_COLOR, DANGER_COLOR } from "@/app/constants/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
