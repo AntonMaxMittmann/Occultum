@@ -18,14 +18,17 @@ const LangsIndex = () => {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => router.push("/(tabs)/langs/AddLanguage")}
+              hitSlop={10}
               style={{
+                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 width: 32,
                 height: 32,
+                marginLeft: 2,
               }}
             >
-              <Ionicons size={25} name="add-outline" color="#004e8d" />
+              <Ionicons size={26} name="add-outline" color="#004e8d" />
             </TouchableOpacity>
           ),
           headerLargeTitle: true,
@@ -41,37 +44,43 @@ const LangsIndex = () => {
         name="AddLanguage"
         options={{
           presentation: "formSheet",
+          headerShadowVisible: false,
           title: "Neue Sprache",
           headerShown: true,
           sheetAllowedDetents: [0.5, 1],
           sheetInitialDetentIndex: 1,
-          sheetGrabberVisible: true,
+          sheetGrabberVisible: false,
         }}
       />
       <Stack.Screen
         name="LanguageDetail"
         options={{
-          presentation: "modal",
+          presentation: Platform.OS === "web" ? "card" : "modal",
           headerShown: true,
           headerShadowVisible: false,
           ...(Platform.OS !== "web" && {
             headerTransparent: true,
           }),
-          headerStyle: Platform.OS !== "web" ? {
-            backgroundColor: "transparent",
-          } : undefined,
+          headerStyle:
+            Platform.OS !== "web"
+              ? {
+                  backgroundColor: "transparent",
+                }
+              : undefined,
           headerRight: () => (
             <TouchableOpacity
               onPress={() => router.back()}
+              hitSlop={10}
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 width: 32,
                 height: 32,
+                marginLeft: 2.5,
               }}
             >
-              <Ionicons name="checkmark-outline" size={25} color="#004e8d" />
+              <Ionicons name="checkmark-outline" size={26} color="#004e8d" />
             </TouchableOpacity>
           ),
         }}

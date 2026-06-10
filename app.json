@@ -48,12 +48,18 @@
       "typedRoutes": true,
       "reactCompiler": true
     },
+    "owner": "antmitt",
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "e4a874c4-1862-4396-afd7-45fd3ed0bb80"
+        "projectId": "77d1c4a9-457d-49a8-b66f-4359b742688a"
       }
     },
-    "owner": "antmitt"
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/77d1c4a9-457d-49a8-b66f-4359b742688a"
+    }
   }
 }

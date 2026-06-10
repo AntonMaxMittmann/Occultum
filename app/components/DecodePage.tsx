@@ -1,3 +1,5 @@
+import { Language } from "@/app/data/defaultLanguages";
+import { decodeText } from "@/app/utils/translate";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
@@ -16,31 +18,6 @@ import {
 } from "react-native";
 
 const LANGUAGE_STORAGE_KEY = "languages";
-
-type Language = {
-  name: string;
-  [key: string]: string;
-};
-
-const reverseTranslate = (text: string, language?: Language) => {
-  if (!language) return "";
-
-  const reverseMap: Record<string, string> = {};
-  Object.entries(language).forEach(([key, value]) => {
-    if (key === "name") return;
-    reverseMap[value] = key;
-  });
-
-  return text
-    .split("")
-    .map((char) => {
-      const lower = char.toLowerCase();
-      const mapped = reverseMap[lower];
-      if (!mapped) return char;
-      return char === lower ? mapped : mapped.toUpperCase();
-    })
-    .join("");
-};
 
 const DecodePage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<
@@ -104,7 +81,7 @@ const DecodePage = () => {
     const currentLanguage = languages.find(
       (language) => language.name === selectedLanguage,
     );
-    setResult(reverseTranslate(inputText, currentLanguage));
+    setResult(decodeText(inputText, currentLanguage));
   }, [inputText, selectedLanguage, languages]);
 
   return (

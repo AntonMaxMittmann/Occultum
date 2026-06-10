@@ -4,22 +4,10 @@ import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { SearchProvider } from "./context/SearchContext";
-
-type Language = {
-  name: string;
-  [key: string]: string;
-};
-
-const createCaesarLanguage = (shift: number): Language => {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
-  const mapping: Language = { name: `Caesar-Verschlüsselung: ${shift}` };
-
-  alphabet.split("").forEach((letter, index) => {
-    mapping[letter] = alphabet[(index + shift) % 26];
-  });
-
-  return mapping;
-};
+import {
+  getDefaultLanguages,
+  REMOVED_DEFAULT_LANGUAGE_NAMES,
+} from "./data/defaultLanguages";
 
 const RootLayout = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -40,41 +28,6 @@ const RootLayout = () => {
     loadIcons();
   }, []);
 
-  const languages = [
-    {
-      name: "Entgegensetzes Alphabet",
-      a: "z",
-      b: "y",
-      c: "x",
-      d: "w",
-      e: "v",
-      f: "u",
-      g: "t",
-      h: "s",
-      i: "r",
-      j: "q",
-      k: "p",
-      l: "o",
-      m: "n",
-      n: "m",
-      o: "l",
-      p: "k",
-      q: "j",
-      r: "i",
-      s: "h",
-      t: "g",
-      u: "f",
-      v: "e",
-      w: "d",
-      x: "c",
-      y: "b",
-      z: "a",
-    },
-    ...Array.from({ length: 25 }, (_, index) =>
-      createCaesarLanguage(index + 1),
-    ),
-  ];
-
   useEffect(() => {
     const initLanguages = async () => {
       try {
@@ -85,8 +38,38 @@ const RootLayout = () => {
           parsed.length === 0 ||
           parsed.some((item: any) => typeof item?.name !== "string");
 
+        const defaults = getDefaultLanguages();
+
         if (shouldWrite) {
-          await AsyncStorage.setItem("languages", JSON.stringify(languages));
+          await AsyncStorage.setItem("languages", JSON.stringify(defaults));
+        } else {
+          const refreshedZiffern = defaults.find(
+            (language) => language.name === "Ziffern",
+          );
+          const cleaned = parsed
+            .filter(
+              (language: { name: string }) =>
+                !REMOVED_DEFAULT_LANGUAGE_NAMES.has(language.name),
+            )
+            .map((language: { name: string }) =>
+              language.name === "Ziffern" && refreshedZiffern
+                ? refreshedZiffern
+                : language,
+            );
+          const existingNames = new Set(
+            cleaned.map((language: { name: string }) => language.name),
+          );
+          const missing = defaults.filter(
+            (language) => !existingNames.has(language.name),
+          );
+          const nextLanguages = [...cleaned, ...missing];
+
+          if (JSON.stringify(nextLanguages) !== JSON.stringify(parsed)) {
+            await AsyncStorage.setItem(
+              "languages",
+              JSON.stringify(nextLanguages),
+            );
+          }
         }
       } catch (error) {
         console.warn("AsyncStorage init failed", error);

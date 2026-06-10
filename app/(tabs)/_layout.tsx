@@ -9,11 +9,15 @@ const TabsLayout = () => {
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Label>Kodieren/Dekodieren</Label>
-        <Icon sf="cpu" drawable="custom_android_drawable" />
+        <Icon sf="cpu" md="code" />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="langs">
-        <Icon sf="globe" drawable="custom_settings_drawable" />
+        <Icon sf="globe" md="language" />
         <Label>Sprachen</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="settings">
+        <Icon sf="gear" md="settings" />
+        <Label>Einstellungen</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   ) : (
@@ -35,6 +39,16 @@ const TabsLayout = () => {
           title: "Sprachen",
           tabBarIcon: ({ color }) => (
             <Ionicons name="language" color={color} size={24} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          headerShown: false,
+          title: "Einstellungen",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings-outline" color={color} size={24} />
           ),
         }}
       />

@@ -1,50 +1,83 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <img src="app/assets/icon.png" alt="Occultum Icon" width="120" />
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<h1 align="center">Occultum</h1>
 
-## Get started
+<p align="center">
+  Texte kodieren, dekodieren und eigene Geheimsprachen verwalten — für Android, iOS und Web.
+</p>
 
-1. Install dependencies
+## Funktionen
+
+- **Kodieren & Dekodieren** — Text in eine von vielen Sprachen übersetzen oder zurückübersetzen
+- **Sprachen verwalten** — Alle verfügbaren Sprachen durchsuchen und Details anzeigen
+- **Eigene Sprachen erstellen** — Buchstaben-Zuordnungen für a–z frei definieren
+- **Viele Standard-Sprachen** — u. a. Caesar-Verschlüsselungen, Emoji-Zahlen, Ziffern, Braille, Griechisch und mehr
+- **Teilen & Kopieren** — Kodierte Texte direkt teilen oder in die Zwischenablage kopieren
+- **Einstellungen** — App-Version, GitHub-Link und Zurücksetzen eigener Sprachen
+
+## Tech-Stack
+
+| Bereich | Technologie |
+|---|---|
+| Framework | [Expo](https://expo.dev) SDK 54 |
+| UI | React Native 0.81, React 19 |
+| Navigation | [Expo Router](https://docs.expo.dev/router/introduction/) (file-based) |
+| Speicher | AsyncStorage |
+| Plattformen | Android, iOS, Web |
+
+## Voraussetzungen
+
+- [Node.js](https://nodejs.org/) (LTS empfohlen)
+- npm (im Lieferumfang von Node.js)
+- Optional für mobile Geräte: [Expo Go](https://expo.dev/go) oder ein Emulator (Android Studio / Xcode)
+
+## App lokal starten
+
+1. Repository klonen und ins Projektverzeichnis wechseln:
+
+   ```bash
+   git clone https://github.com/AntonMaxMittmann/Occultum.git
+   cd Occultum
+   ```
+
+2. Abhängigkeiten installieren:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. Entwicklungsserver starten:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. App öffnen — im Terminal erscheinen Optionen für:
+   - **Web** — `w` drücken oder im Browser öffnen
+   - **Android** — `a` drücken (Emulator) oder QR-Code mit Expo Go scannen
+   - **iOS** — `i` drücken (Simulator, nur macOS) oder QR-Code mit Expo Go scannen
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Alternativ direkt für eine Plattform starten:
 
 ```bash
-npm run reset-project
+npm run web      # Web
+npm run android  # Android
+npm run ios      # iOS (nur macOS)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Projektstruktur
 
-## Learn more
+```
+app/
+├── (tabs)/          # Tab-Navigation (Kodieren, Sprachen, Einstellungen)
+├── components/      # CodePage, DecodePage
+├── context/         # React Context (Suche)
+├── data/            # Standard-Sprachen
+└── assets/          # Icons und Bilder
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Lizenz
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Dieses Projekt ist Open Source. Beiträge und Issues sind auf [GitHub](https://github.com/AntonMaxMittmann/Occultum) willkommen.

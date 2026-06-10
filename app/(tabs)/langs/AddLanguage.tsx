@@ -13,8 +13,9 @@ import {
   View,
 } from "react-native";
 
+import { ALPHABET } from "@/app/data/defaultLanguages";
+
 const LANGUAGE_STORAGE_KEY = "languages";
-const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
 
 type Language = {
   name: string;
@@ -47,6 +48,17 @@ const AddLanguage = () => {
       return;
     }
 
+    const missingLetters = ALPHABET.filter(
+      (letter) => !mappings[letter]?.trim(),
+    );
+    if (missingLetters.length > 0) {
+      Alert.alert(
+        "Zuordnungen unvollständig",
+        "Bitte fülle alle Buchstaben-Zuordnungen aus.",
+      );
+      return;
+    }
+
     setIsSaving(true);
     try {
       const stored = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
@@ -62,10 +74,7 @@ const AddLanguage = () => {
 
       const newLanguage: Language = { name: trimmedName };
       ALPHABET.forEach((letter) => {
-        const mapped = mappings[letter]?.trim();
-        if (mapped) {
-          newLanguage[letter] = mapped;
-        }
+        newLanguage[letter] = mappings[letter].trim();
       });
 
       languages.push(newLanguage);
@@ -88,11 +97,12 @@ const AddLanguage = () => {
         <TouchableOpacity
           onPress={handleSave}
           disabled={isSaving}
+          hitSlop={10}
           style={styles.headerButton}
         >
           <Ionicons
             name="checkmark-outline"
-            size={25}
+            size={26}
             color={isSaving ? "#99b3c7" : "#004e8d"}
           />
         </TouchableOpacity>
@@ -101,9 +111,17 @@ const AddLanguage = () => {
   }, [navigation, handleSave, isSaving]);
 
   const updateMapping = (letter: string, value: string) => {
+    let normalized = value
+      .replace(/ä/g, 'ae')
+      .replace(/ö/g, 'oe')
+      .replace(/ü/g, 'ue')
+      .replace(/Ä/g, 'AE')
+      .replace(/Ö/g, 'OE')
+      .replace(/Ü/g, 'UE');
+
     setMappings((prev) => ({
       ...prev,
-      [letter]: value.slice(-1),
+      [letter]: normalized.slice(0, 2),
     }));
   };
 
@@ -114,7 +132,7 @@ const AddLanguage = () => {
       <TextInput
         value={mappings[item.from]}
         onChangeText={(text) => updateMapping(item.from, text)}
-        maxLength={1}
+        maxLength={2}
         autoCapitalize="none"
         autoCorrect={false}
         style={styles.toInput}
@@ -200,10 +218,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   headerButton: {
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: 32,
     height: 32,
+    marginLeft: 6,
   },
 });
 

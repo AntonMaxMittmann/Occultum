@@ -1,3 +1,5 @@
+import { Language } from "@/app/data/defaultLanguages";
+import { encodeText } from "@/app/utils/translate";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
@@ -16,24 +18,6 @@ import {
 } from "react-native";
 
 const LANGUAGE_STORAGE_KEY = "languages";
-
-type Language = {
-  name: string;
-  [key: string]: string;
-};
-
-const translateText = (text: string, language?: Language) => {
-  if (!language) return "";
-
-  return text
-    .split("")
-    .map((char) => {
-      const lower = char.toLowerCase();
-      const mapped = language[lower];
-      return mapped ?? char;
-    })
-    .join("");
-};
 
 const CodePage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<
@@ -97,7 +81,7 @@ const CodePage = () => {
     const currentLanguage = languages.find(
       (language) => language.name === selectedLanguage,
     );
-    setResult(translateText(inputText, currentLanguage));
+    setResult(encodeText(inputText, currentLanguage));
   }, [inputText, selectedLanguage, languages]);
 
   return (
