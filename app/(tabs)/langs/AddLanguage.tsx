@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 32,
     height: 32,
-    marginLeft: 6,
+    marginLeft: 3,
   },
 });
 
